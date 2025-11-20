@@ -76,3 +76,7 @@ Protected, nevertheless, can be used by the class itself or their subclass
 
 ### Subtype Polymorphism
 	- Dynamic method dispatch allows for subtype polymorphism (allowing subtype values to be treated as supertype instance)
+
+--- 
+## Understanding Polymorphism with Pokemon:
+https://medium.com/@omarfdez92/lets-explore-polymorphism-in-java-using-pokemon-da4c74a9c876
