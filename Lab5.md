@@ -96,9 +96,11 @@ Map<String, Supplier<Player>> playerMap = Map.of(
 );
 Player player = playerMap.get(input).get();
 >> The `Map` in Java is conceptually similar to the `Dictionary` in Python. To make the lab, I still prefer to use a List rather than a Map, due to familiarity.
+```
 
 ## Ternary Operator
 The ternary operator uses the syntax:
+
 ```java
 condition ? valueIfTrue : valueIfFalse;
 ```
@@ -116,6 +118,7 @@ if (score >= 60) {
     result = "Fail";
 }
 ```
+
 
 ### Using ternary operator:
 ```java
