@@ -1,3 +1,123 @@
+# Lab 6 – OOP Study Notes (Pokémon Type Analyzer)
+
+Use this as a **review sheet** for your test: it focuses on the **main OOP concepts** and the **key ideas in your design**, not details of every line.
+
+---
+
+## 1. Big Picture: What Your Lab 6 App Does
+
+- It is a **JavaFX GUI application** that:
+  - Shows a **grid of Pokémon type buttons** (Normal, Fire, Water, etc.).
+  - When you click a type, it shows a **detail view** with:
+    - The type’s icon and name.
+    - Lists of types that are:
+      - **Super effective (2×)**
+      - **Not very effective (0.5×)**
+      - **No effect (0×)**
+- Behind the scenes, it models Pokémon types using **inheritance, polymorphism, and a registry of singleton-like instances**.
+
+---
+
+## 2. Core OOP Concepts Demonstrated
+
+### 2.1 Abstraction and Encapsulation (`PokemonType`)
+
+- `PokemonType` is an **abstract base class** that represents *any* Pokémon type.
+- It **encapsulates**:
+  - Shared data: `name`, `imagePath`, `themeColor`.
+  - Shared behavior: getters, effectiveness calculation method.
+- It declares an **abstract method**:
+  - `loadRelations()` → must be implemented by each specific type class to define strengths/weaknesses.
+- Key ideas:
+  - Abstract class = common template for all types.
+  - Fields are `private`; access only via **getters**, which is encapsulation.
+  - Subclasses don’t care *how* `effectivenessAgainst` is implemented; they only fill the lists that method uses.
+
+**Study focus:**
+- Why use an **abstract class** instead of a concrete one?
+- Why keep fields `private` and expose only getters?
+
+---
+
+### 2.2 Inheritance (Concrete Type Classes)
+
+- Each real Pokémon type (Fire, Water, Grass, etc.) is a **subclass** of `PokemonType`.
+- Example pattern (conceptually):
+
+  ```java
+  class SomeType extends PokemonType {
+      public SomeType() {
+          super("SOME_TYPE", "/path.png", "#HEXCOLOR");
+      }
+
+      @Override
+      public void loadRelations() {
+          // add types this is strong/weak against
+      }
+  }
+  ```
+
+- They all:
+  - Call `super(...)` in the constructor to set shared properties.
+  - Override `loadRelations()` to fill in:
+    - `superEffective`
+    - `notVeryEffective`
+    - `noEffect`
+
+**Study focus:**
+- How subclasses use `super(...)` to call the **superclass constructor**.
+- How each subclass provides its **own specific data** while reusing the base class logic.
+
+---
+
+### 2.3 Polymorphism
+
+**Static type**: `PokemonType`  
+**Actual object**: `FireType`, `WaterType`, `GrassType`, etc.
+
+- Arrays or lists are of type `PokemonType[]` or `List<PokemonType>`, but can hold any subtype.
+- UI code never needs to know **which exact subclass** it’s dealing with; it just calls:
+  - `getName()`
+  - `getImagePath()`
+  - `getThemeColor()`
+  - `getSuperEffective()`, etc.
+
+- When you call `loadRelations()` through a `PokemonType` reference, the **overridden version** in the correct subclass runs → **runtime polymorphism**.
+
+**Study focus:**
+- Be able to explain:  
+  “We treat all types as `PokemonType`, but at runtime the correct subclass methods are used.”
+
+---
+
+### 2.4 Static Registry & Shared Instances (`TypeRegistry`)
+
+- `TypeRegistry` holds **one shared instance** of each type as a `public static final` field.
+- It uses a **static initializer block** to call `loadRelations()` on each type once at start-up.
+- This design:
+  - Avoids creating hundreds of duplicate type objects.
+  - Gives a central place to reference the same instances everywhere (e.g., `TypeRegistry.FIRE`).
+
+**Study focus:**
+- Why `public static final` → behaves like a **named constant** instance.
+- Meaning and use of a **static initializer block**.
+
+---
+
+## 3. Modeling Relationships and Behavior
+
+### 3.1 Storing Type Matchups
+
+- Each Pokémon type has:
+  - A list of types it is **super effective** against.
+  - A list for **not very effective**.
+  - A list for **no effect**.
+- These are **lists of `PokemonType` objects**, not just names or enums.
+
+Conceptually:
+java // 
+in base class protected ListsuperEffective; protected List notVeryEffective; protected List noEffect;
+
 
 Each subclass’s `loadRelations()` fills these lists using types from `TypeRegistry`.
 
