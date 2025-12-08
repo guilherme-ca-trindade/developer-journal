@@ -1,6 +1,6 @@
 # Code Questions from the Test 2 Practice
 
-## Define two interfaces, Steerable and Drivable. The Steerable interface must contain the method ‘turn’ which accepts an integer number of degrees. The Drivable interface must contain the methods: ‘go’ and ‘stop’. Now define a class named Vehicle that implements both these interfaces with any necessary code so that the following code produces the indicated output: 
+#### Define two interfaces, Steerable and Drivable. The Steerable interface must contain the method ‘turn’ which accepts an integer number of degrees. The Drivable interface must contain the methods: ‘go’ and ‘stop’. Now define a class named Vehicle that implements both these interfaces with any necessary code so that the following code produces the indicated output: 
 
 var v = new Vehicle(“Corvette”); v.turn(10); // prints “The Corvette turned 10 degrees” 
 v.go(); // prints “Vroom! The Corvette is driving.” 
@@ -41,7 +41,7 @@ class Vehicle implements Steerable, Drivable {
 ```
 
 
-## Write two classes named Point and LabelledPoint where LabelledPoint is a subclass of Point.  Use appropriate constructors, instance variables, setters, getters, and overrides such that the following code produces the indicated output:
+#### Write two classes named Point and LabelledPoint where LabelledPoint is a subclass of Point.  Use appropriate constructors, instance variables, setters, getters, and overrides such that the following code produces the indicated output:
 
 System.out.println(new Point(1, 2));   // prints “(1,2)” 
 System.out.println(new LabelledPoint(1, 2, “a”)); // prints “a:(1,2)”
